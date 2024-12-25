@@ -41,5 +41,5 @@ class TestUrbanRoutes:
 
     # Add in S8
     def test_car_search_model_appears(self):
-        print("Function created for car search model appears")
+        print("Function created for car search model appears ")
         pass
