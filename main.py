@@ -34,11 +34,12 @@ class TestUrbanRoutes:
     # Add in S8
     def test_order_2_ice_creams(self):
         print("Function created for order 2 ice creams")
-        for i in range(2):
+        ice_creams = 2
+        for i in range(ice_creams):
     # Add in S8
             pass
 
     # Add in S8
     def test_car_search_model_appears(self):
-        print("Function created for car search model appears ")
+        print("Function created for car search model appears")
         pass
