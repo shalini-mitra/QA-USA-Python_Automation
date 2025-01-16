@@ -1,45 +1,222 @@
+import time
+
 import data
 import helpers
+from selenium import webdriver
+from pages import UrbanRoutesPage
 
 class TestUrbanRoutes:
     @classmethod
     def setup_class(cls):
-       if helpers.is_url_reachable(data.URBAN_ROUTES_URL):
-        print("Connected to the Urban Routes server")
-       else:
-           print("Cannot connect to Urban Routes. Check the server is on and still running")
-# Add in S8
+        # do not modify - we need additional logging enabled in order to retrieve phone confirmation code
+        from selenium.webdriver import DesiredCapabilities
+        capabilities = DesiredCapabilities.CHROME
+        capabilities["goog:loggingPrefs"] = {'performance':'ALL'}
+        cls.driver = webdriver.Chrome()
+
+        if helpers.is_url_reachable(data.URBAN_ROUTES_URL):
+                print("Connected to the Urban Routes server")
+        else:
+                print("Cannot connect to Urban Routes. Check the server is on and still running")
+
     def test_set_route(self):
-        print("Function created for set route")
-# Add in S8
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+
     def test_select_plan(self):
-        print("Function created for select plan")
-        pass
-    # Add in S8
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+
     def test_fill_phone_number(self):
-        print("Function created for fill phone number")
-        pass
-    # Add in S8
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+        urban_routes_page.select_phone_number()
+        urban_routes_page.enter_the_phone_number_field(data.PHONE_NUMBER)
+        time.sleep(2)
+        urban_routes_page.click_next_button()
+        time.sleep(2)
+        urban_routes_page.enter_the_verification_code(helpers.retrieve_phone_code(self.driver))
+        time.sleep(1)
+        urban_routes_page.click_confirm_button()
+
     def test_fill_card(self):
-        print("Function created for fill card")
-        pass
-    # Add in S8
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+        urban_routes_page.select_phone_number()
+        urban_routes_page.enter_the_phone_number_field(data.PHONE_NUMBER)
+        time.sleep(2)
+        urban_routes_page.click_next_button()
+        time.sleep(2)
+        urban_routes_page.enter_the_verification_code(helpers.retrieve_phone_code(self.driver))
+        urban_routes_page.click_confirm_button()
+        urban_routes_page.select_payment_method()
+        time.sleep(2)
+        urban_routes_page.click_add_card()
+        time.sleep(1)
+        urban_routes_page.enter_card_number(data.CARD_NUMBER)
+        time.sleep(1)
+        urban_routes_page.enter_card_code(data.CARD_CODE)
+        time.sleep(1)
+        urban_routes_page.click_add_card_title()
+        time.sleep(2)
+        urban_routes_page.click_link_button()
+        time.sleep(2)
+        urban_routes_page.click_close_payment_window()
+
     def test_comment_for_driver(self):
-        print("Function created for comment for driver")
-        pass
-    # Add in S8
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+        urban_routes_page.select_phone_number()
+        urban_routes_page.enter_the_phone_number_field(data.PHONE_NUMBER)
+        time.sleep(2)
+        urban_routes_page.click_next_button()
+        time.sleep(2)
+        urban_routes_page.enter_the_verification_code(helpers.retrieve_phone_code(self.driver))
+        urban_routes_page.click_confirm_button()
+        urban_routes_page.select_payment_method()
+        time.sleep(2)
+        urban_routes_page.click_add_card()
+        time.sleep(1)
+        urban_routes_page.enter_card_number(data.CARD_NUMBER)
+        time.sleep(1)
+        urban_routes_page.enter_card_code(data.CARD_CODE)
+        time.sleep(1)
+        urban_routes_page.click_add_card_title()
+        time.sleep(2)
+        urban_routes_page.click_link_button()
+        time.sleep(2)
+        urban_routes_page.click_close_payment_window()
+        urban_routes_page.enter_message_driver(data.MESSAGE_FOR_DRIVER)
+
     def test_order_blanket_and_handkerchiefs(self):
-        print("Function created for order blanket and handkerchiefs")
-        pass
-    # Add in S8
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+        urban_routes_page.select_phone_number()
+        urban_routes_page.enter_the_phone_number_field(data.PHONE_NUMBER)
+        time.sleep(2)
+        urban_routes_page.click_next_button()
+        time.sleep(2)
+        urban_routes_page.enter_the_verification_code(helpers.retrieve_phone_code(self.driver))
+        urban_routes_page.click_confirm_button()
+        urban_routes_page.select_payment_method()
+        time.sleep(2)
+        urban_routes_page.click_add_card()
+        time.sleep(1)
+        urban_routes_page.enter_card_number(data.CARD_NUMBER)
+        time.sleep(1)
+        urban_routes_page.enter_card_code(data.CARD_CODE)
+        time.sleep(1)
+        urban_routes_page.click_add_card_title()
+        time.sleep(2)
+        urban_routes_page.click_link_button()
+        time.sleep(2)
+        urban_routes_page.click_close_payment_window()
+        urban_routes_page.enter_message_driver(data.MESSAGE_FOR_DRIVER)
+        urban_routes_page.turn_on_blanket_handkerchiefs_option()
+
     def test_order_2_ice_creams(self):
-        print("Function created for order 2 ice creams")
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+        urban_routes_page.select_phone_number()
+        urban_routes_page.enter_the_phone_number_field(data.PHONE_NUMBER)
+        time.sleep(2)
+        urban_routes_page.click_next_button()
+        time.sleep(2)
+        urban_routes_page.enter_the_verification_code(helpers.retrieve_phone_code(self.driver))
+        urban_routes_page.click_confirm_button()
+        urban_routes_page.select_payment_method()
+        time.sleep(2)
+        urban_routes_page.click_add_card()
+        time.sleep(1)
+        urban_routes_page.enter_card_number(data.CARD_NUMBER)
+        time.sleep(1)
+        urban_routes_page.enter_card_code(data.CARD_CODE)
+        time.sleep(1)
+        urban_routes_page.click_add_card_title()
+        time.sleep(2)
+        urban_routes_page.click_link_button()
+        time.sleep(2)
+        urban_routes_page.click_close_payment_window()
+        urban_routes_page.enter_message_driver(data.MESSAGE_FOR_DRIVER)
+        urban_routes_page.turn_on_blanket_handkerchiefs_option()
         ice_creams = 2
         for i in range(ice_creams):
-    # Add in S8
-            pass
-    # Add in S8
+            urban_routes_page.click_add_ice_cream()
+        urban_routes_page.click_order_button()
+
     def test_car_search_model_appears(self):
-        print("Function created for car search model appears")
+        self.driver.get(data.URBAN_ROUTES_URL)
+        urban_routes_page = UrbanRoutesPage(self.driver)
+        urban_routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        time.sleep(2)
+        urban_routes_page.calling_a_taxi()
+        time.sleep(2)
+        urban_routes_page.click_taxi_type()
+        urban_routes_page.select_phone_number()
+        urban_routes_page.enter_the_phone_number_field(data.PHONE_NUMBER)
+        time.sleep(2)
+        urban_routes_page.click_next_button()
+        time.sleep(2)
+        urban_routes_page.enter_the_verification_code(helpers.retrieve_phone_code(self.driver))
+        urban_routes_page.click_confirm_button()
+        urban_routes_page.select_payment_method()
+        time.sleep(2)
+        urban_routes_page.click_add_card()
+        time.sleep(1)
+        urban_routes_page.enter_card_number(data.CARD_NUMBER)
+        time.sleep(1)
+        urban_routes_page.enter_card_code(data.CARD_CODE)
+        time.sleep(1)
+        urban_routes_page.click_add_card_title()
+        time.sleep(2)
+        urban_routes_page.click_link_button()
+        time.sleep(2)
+        urban_routes_page.click_close_payment_window()
+        urban_routes_page.enter_message_driver(data.MESSAGE_FOR_DRIVER)
+        urban_routes_page.turn_on_blanket_handkerchiefs_option()
+        ice_creams = 2
+        for i in range(ice_creams):
+            urban_routes_page.click_add_ice_cream()
+            #print("Function created for order 2 ice creams")
+        urban_routes_page.click_order_button()
+        actual_result = urban_routes_page.get_car_search_text()
+        expected_result = "Car search"
+        assert expected_result in actual_result, f'Expected {expected_result}, but got {actual_result}'
+        time.sleep(30)
+        urban_routes_page.get_car_model_number()
         pass
-    """Hello Reviewer, I deleted "pass" in line 40 and added the variable for ice cream. Thank you so much for your feedback5"""
+
+    @classmethod
+    def teardown_class(cls):
+        cls.driver.quit()
